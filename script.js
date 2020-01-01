@@ -20,11 +20,11 @@ function displayResults (responseJson) {
 
   for (let i=0; i<responseJson.data.length; i++) {
     $('.showParks').append(`
-      <li><h3>${responseJson.data[i].fullName}</h3>
+      <h3>${responseJson.data[i].fullName}</h3>
       <a href='${responseJson.data[i].url}'>${responseJson.data[i].url}</a>
       <p>${responseJson.data[i].description}</p>
       <p>${responseJson.data[i].directionsInfo}</p>
-      </li>
+      
       `)
   };
   
@@ -36,12 +36,12 @@ function grabPark(searchState, searchMaxResult = 10) {
    
   const params = {
     api_key: API_KEY,
-    limit: maxResults,
-    stateCode: query
+    limit: searchMaxResult,
+    stateCode: searchState
   };
   
   const queryString = formatQueryParams(params);
-  const url = searchURL + '?' + queryString;
+  const url = searchUrl + '?' + queryString;
 
   fetch(url)
   .then(response => {
@@ -71,3 +71,5 @@ function watchFrom () {
      grabPark(searchState, searchMaxResult);
   });
 }
+
+$(watchFrom);
